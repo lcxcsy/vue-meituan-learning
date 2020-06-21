@@ -8,7 +8,6 @@
                alt="美团">
         </nuxt-link>
       </el-col>
-
       <el-col :span="15"
               class="center">
         <div class="wrapper">
@@ -17,13 +16,11 @@
                     @focus="focus"
                     @blur="blur"
                     @input="input" />
-
           <nuxt-link :to="'/products?keyword='+encodeURIComponent(search)">
             <el-button type="primary"
                        class="el-button el-button--primary"
                        icon="el-icon-search" />
           </nuxt-link>
-
           <dl class="hotPlace"
               v-if="isHotPlace ">
             <dt>热门搜索</dt>
@@ -112,7 +109,7 @@ export default {
     blur () {
       const self = this
       setTimeout(() => {
-        this.isFocus = false
+        self.isFocus = false
       }, 200)
     },
     input: _.debounce(async function () {
@@ -128,7 +125,9 @@ export default {
           city
         }
       })
-      self.searchList = top.slice(0, 10)
+      if (status == 200) {
+        self.searchList = top.slice(0, 10)
+      }
     }, 300)
   }
 }

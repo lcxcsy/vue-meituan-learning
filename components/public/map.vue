@@ -1,5 +1,7 @@
 <template>
-  <div :id="id" :style="{width:width+'px',height:height+'px',margin:'34px auto'}" class="m-map" />
+  <div :id="id"
+       :style="{width:width+'px',height:height+'px',margin:'34px auto'}"
+       class="m-map" />
 </template>
 
 <script>
@@ -28,6 +30,9 @@ export default {
   },
   watch: {
     point: function (val, old) {
+      if (!val) {
+        this.map.setCenter(old)
+      }
       this.map.setCenter(val)
       this.marker.setPosition(val)
     }
@@ -47,9 +52,9 @@ export default {
     // jsApi.charset = 'utf-8';
     // jsApi.src = url;
     // document.head.appendChild(jsApi);
-    window.onMapLoad = () => {
+    window.onLoad = () => {
       // 实例化一个地图对象，self.id为DOM节点
-      let map = new window.AMap.Map(self.id, {
+      var map = new window.AMap.Map(self.id, {
         resizeEnable: true,
         zoom: 13,
         center: self.point
@@ -67,7 +72,7 @@ export default {
         marker.setMap(map)
       })
     }
-    const url = `https://webapi.amap.com/maps?v=1.4.10&key=${self.key}&callback=onmaploaded`
+    const url = `https://webapi.amap.com/maps?v=1.4.15&key=${self.key}&callback=onLoad`
     let jsApi = document.createElement('script')
     jsApi.charset = 'utf-8'
     jsApi.src = url

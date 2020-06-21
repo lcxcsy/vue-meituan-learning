@@ -9,7 +9,6 @@
                  :value="item.value">
       </el-option>
     </el-select>
-
     <el-select v-model="cvalue"
                :disabled="!city.length"
                placeholder="城市">
@@ -19,7 +18,8 @@
                  :value="item.value">
       </el-option>
     </el-select>
-    <span class="name" style="margin-left:50px">直接搜索：</span>
+    <span class="name"
+          style="margin-left:50px">直接搜索：</span>
     <el-autocomplete v-model="input"
                      :fetch-suggestions="querySearch"
                      placeholder="请输入城市中文或拼音"
@@ -82,7 +82,7 @@ export default {
       } else {
         let {
           status,
-          data: { code, city }
+          data: { city }
         } = await self.$axios.get('/geo/city')
         if (status === 200) {
           self.cities = city.map(item => {
@@ -105,5 +105,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/css/changeCity/iselect.scss";
+@import '@/assets/css/changeCity/iselect.scss';
 </style>
